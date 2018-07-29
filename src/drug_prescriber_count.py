@@ -57,8 +57,8 @@ def getUniqueDrugPrescriberCount(b):
 
 
 # Defining a function to combine the output of getUniqueDrugPrescriberCount() and getTotalDrugCost() function
-def getUnsortedDrugPrescriberCountAndDrugCost(Drug_amount, drug_cust):
-    unsorted_output = dict((k, [drug_cust[k], Drug_amount.get(k)]) for k in drug_cust)
+def getUnsortedDrugPrescriberCountAndDrugCost(Drug_amount, no_of_cust):
+    unsorted_output = dict((k, [no_of_cust[k], Drug_amount.get(k)]) for k in no_of_cust)
     return unsorted_output
 
 
@@ -118,18 +118,18 @@ def main():
     no_of_cust = getUniqueDrugPrescriberCount(text_list)
     
     print('Consolidating the Drug, it\'s unique prescriber count and total cost of the drug!!!', '\n')
-    unsorted_output = getUnsortedDrugPrescriberCountAndDrugCost(no_of_cust, Drug_amount)
-    print(unsorted_output)
+    unsorted_output = getUnsortedDrugPrescriberCountAndDrugCost(Drug_amount,no_of_cust)
+    #print(unsorted_output)
     print('Sorting the content based on total cost of the drug in descending order!!!', '\n')
     sorted_output = getSortedDrugPrescriberCountAndDrugCost(unsorted_output)
-    print(sorted_output)
+    #print(sorted_output)
     print('Writing the content to the output file!!!', '\n')
     writeOutputFile(sorted_output,targetFileLocation)
     
     print('Process finished!!!')
 
 
-# In[9]:
+# In[ ]:
 
 
 if __name__ == '__main__':
