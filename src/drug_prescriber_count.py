@@ -82,7 +82,7 @@ def getSortedDrugPrescriberCountAndDrugCost(unsorted_output):
 
 # Defining a function to write the output to a file
 def writeOutputFile(sorted_output,targetFileLocation):
-    with open(targetFileLocation,"w") as f:
+    with open(targetFileLocation,"w", newline='\n') as f:
         wr = csv.writer(f)
         wr.writerows(sorted_output)
 
@@ -119,10 +119,10 @@ def main():
     
     print('Consolidating the Drug, it\'s unique prescriber count and total cost of the drug!!!', '\n')
     unsorted_output = getUnsortedDrugPrescriberCountAndDrugCost(no_of_cust, Drug_amount)
-    
+    print(unsorted_output)
     print('Sorting the content based on total cost of the drug in descending order!!!', '\n')
     sorted_output = getSortedDrugPrescriberCountAndDrugCost(unsorted_output)
-    
+    print(sorted_output)
     print('Writing the content to the output file!!!', '\n')
     writeOutputFile(sorted_output,targetFileLocation)
     
