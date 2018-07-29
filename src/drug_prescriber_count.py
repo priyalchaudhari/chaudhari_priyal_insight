@@ -82,7 +82,7 @@ def getSortedDrugPrescriberCountAndDrugCost(unsorted_output):
 
 # Defining a function to write the output to a file
 def writeOutputFile(sorted_output,targetFileLocation):
-    with open(targetFileLocation,"w", newline='\n') as f:
+    with open(targetFileLocation,"w") as f:
         wr = csv.writer(f)
         wr.writerows(sorted_output)
 
