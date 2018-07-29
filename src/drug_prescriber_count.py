@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[20]:
+# In[1]:
 
 
 import os
@@ -11,17 +11,17 @@ import operator
 import sys
 
 
-# In[5]:
+# In[2]:
 
 
-def getSourceFileContent():
-    with open ('itcont.txt','r') as myfile:
+def getSourceFileContent(sourceFileLocation):
+    with open (sourceFileLocation,'r') as myfile:
         full_text = myfile.read().splitlines()
         text_list = [txt.split(',') for txt in full_text]
         return text_list
 
 
-# In[26]:
+# In[3]:
 
 
 def getTotalDrugCost(a):
@@ -34,7 +34,7 @@ def getTotalDrugCost(a):
     return Drug_amount
 
 
-# In[27]:
+# In[4]:
 
 
 # Defining a function to compute the total number of unique prescribers of a particular drug
@@ -53,7 +53,7 @@ def getUniqueDrugPrescriberCount(b):
     return no_of_cust
 
 
-# In[28]:
+# In[5]:
 
 
 # Defining a function to combine the output of getUniqueDrugPrescriberCount() and getTotalDrugCost() function
@@ -62,7 +62,7 @@ def getUnsortedDrugPrescriberCountAndDrugCost(Drug_amount, drug_cust):
     return unsorted_output
 
 
-# In[29]:
+# In[6]:
 
 
 # Defining a function to sort the result based on the total_cost of a drug
@@ -77,17 +77,17 @@ def getSortedDrugPrescriberCountAndDrugCost(unsorted_output):
     return sorted_output
 
 
-# In[30]:
+# In[7]:
 
 
 # Defining a function to write the output to a file
-def writeOutputFile(sorted_output):
-    with open('top_cost_drug.txt',"w", newline='\n') as f:
+def writeOutputFile(sorted_output,targetFileLocation):
+    with open(targetFileLocation,"w", newline='\n') as f:
         wr = csv.writer(f)
         wr.writerows(sorted_output)
 
 
-# In[31]:
+# In[8]:
 
 
 # Defining a main() function which reads the input and output directory from the command line
@@ -95,10 +95,21 @@ def writeOutputFile(sorted_output):
 
 def main():
     
+    user_input = sys.argv[1:]
     print("----Process Started----", '\n')
+    counter = 0
+    if len(user_input) == 0:
+        print('No Input provided. Process is exiting!!')
+        exit(0)
+    for ip in user_input:
+        if counter == 0:
+            sourceFileLocation = str(ip)
+        else:
+            targetFileLocation = str(ip)
+        counter += 1
 
     print('Reading the source file!!!', '\n')
-    text_list = getSourceFileContent()
+    text_list = getSourceFileContent(sourceFileLocation)
     
     print('Getting the total cost of each prescribed drug!!!', '\n')
     Drug_amount = getTotalDrugCost(text_list)
@@ -113,12 +124,12 @@ def main():
     sorted_output = getSortedDrugPrescriberCountAndDrugCost(unsorted_output)
     
     print('Writing the content to the output file!!!', '\n')
-    writeOutputFile(sorted_output)
+    writeOutputFile(sorted_output,targetFileLocation)
     
     print('Process finished!!!')
 
 
-# In[33]:
+# In[9]:
 
 
 if __name__ == '__main__':
